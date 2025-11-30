@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://djbdgpy3cqvdi"]
+
+[ext_resource type="Script" uid="uid://exulwmogict1" path="res://01_Scenes/easter eggs/marcel_trigger.gd" id="1_d0j2m"]
+[ext_resource type="AudioStream" uid="uid://g3q2kqjlchnx" path="res://03_Assets/Audio/SFX/Unbenanntes Video – Mit Clipchamp erstellt.mp3" id="2_d0j2m"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_b8snd"]
+size = Vector3(1.7342529, 1.9306641, 1.7479248)
+
+[node name="Area3D" type="Area3D"]
+script = ExtResource("1_d0j2m")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16680908, -0.46533203, -0.616272)
+shape = SubResource("BoxShape3D_b8snd")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_d0j2m")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

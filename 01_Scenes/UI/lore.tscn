@@ -1,0 +1,104 @@
+[gd_scene load_steps=4 format=3 uid="uid://buig4rourb4jk"]
+
+[ext_resource type="Script" uid="uid://bmwqk2kklykig" path="res://02_Scripts/UI/lore.gd" id="1_dcsag"]
+[ext_resource type="Theme" uid="uid://c5un6jvbbyl7t" path="res://03_Assets/Visual/cutscene_theme.tres" id="2_gjexs"]
+[ext_resource type="Script" uid="uid://b24hbx0n27he6" path="res://02_Scripts/UI/dynamic_button.gd" id="3_gjexs"]
+
+[node name="Lore" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dcsag")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="IntroText" type="RichTextLabel" parent="CenterContainer"]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 2
+theme = ExtResource("2_gjexs")
+bbcode_enabled = true
+text = "No matter how deep you go,
+ [shake]The Persecutor[/shake] will always find you.
+The Company will always find you.
+[color=orange]Profundus Gehenna[/color] never forgets.
+
+[color=light_blue]The radiowaves[/color] won't save you Jeremia.
+
+
+
+They never did.
+[color=orange][shake]Hic in profunda ingredior[/shake][/color]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SecondCave" type="RichTextLabel" parent="CenterContainer"]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 2
+theme = ExtResource("2_gjexs")
+bbcode_enabled = true
+text = "Do you know why [shake]The Persecutor[/shake] always finds you, Jeremia?
+
+It's [color=white]The Eyes[/color]. They are all seeing.
+
+Better charge up [color=yellow]The Light[/color] that Lucia gave you.
+
+
+Or don't.
+
+
+You won't reach the end of [color=red]The Tunnel[/color] anyways"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EndText" type="RichTextLabel" parent="CenterContainer"]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 2
+theme = ExtResource("2_gjexs")
+bbcode_enabled = true
+text = "[color=orange]Profundus Gehenna[/color] can never see [color=grey]The Light[/color] of Day.
+
+You knew that when you signed up Jeremia.
+So why did you change your mind?
+
+Because of what we did to Lucia?
+She got what was coming for her anyway.
+The [color=light_blue][shake]Supplantation[/shake][/color] cannot be stopped.
+
+Not even by [color=yellow]The Light[/color]
+
+You may be safe now. But you can never return.
+[color=orange][shake]Hic in profunda ingredior[/shake][/color]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SkipButton" type="Button" parent="."]
+custom_minimum_size = Vector2(250, 150)
+layout_mode = 0
+offset_left = 25.0
+offset_top = 900.0
+offset_right = 275.0
+offset_bottom = 1050.0
+text = "Skip"
+script = ExtResource("3_gjexs")
+metadata/_custom_type_script = "uid://b24hbx0n27he6"
+
+[connection signal="pressed" from="SkipButton" to="." method="_on_skip_button_pressed"]

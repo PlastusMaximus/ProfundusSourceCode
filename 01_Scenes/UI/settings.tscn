@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=3 uid="uid://yy864im71bdh"]
+
+[ext_resource type="Script" uid="uid://b0h6yeettym2k" path="res://02_Scripts/UI/settings.gd" id="1_5p8wc"]
+[ext_resource type="PackedScene" uid="uid://c7xkoufr2uadr" path="res://01_Scenes/UI/slider_setting.tscn" id="2_r6d6q"]
+[ext_resource type="PackedScene" uid="uid://buq1el60phdmj" path="res://01_Scenes/UI/selector_setting.tscn" id="3_h175o"]
+[ext_resource type="Texture2D" uid="uid://dtqf1hlt2hsvp" path="res://03_Assets/Visual/UI/german_button.png" id="4_ncfhn"]
+[ext_resource type="Texture2D" uid="uid://dgcp20a6sk08v" path="res://03_Assets/Visual/UI/english_button.png" id="5_ob3hf"]
+
+[node name="Settings" type="Control"]
+process_mode = 3
+custom_minimum_size = Vector2(350, 1080)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_5p8wc")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+custom_minimum_size = Vector2(350, 1080)
+layout_mode = 1
+offset_right = 77.0
+offset_bottom = 31.0
+current_tab = 0
+clip_tabs = false
+
+[node name="Sound" type="Panel" parent="TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Sound" type="BoxContainer" parent="TabContainer/Sound"]
+layout_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Sound/Sound"]
+layout_mode = 2
+
+[node name="Music_Setting" parent="TabContainer/Sound/Sound/VBoxContainer" instance=ExtResource("2_r6d6q")]
+layout_mode = 2
+setting_name = "Music"
+
+[node name="SFX_Setting" parent="TabContainer/Sound/Sound/VBoxContainer" instance=ExtResource("2_r6d6q")]
+layout_mode = 2
+setting_name = "SFX"
+
+[node name="LanguageSetting" parent="TabContainer/Sound/Sound/VBoxContainer" instance=ExtResource("3_h175o")]
+visible = false
+layout_mode = 2
+setting_name = "Language"
+
+[node name="OptionButton" parent="TabContainer/Sound/Sound/VBoxContainer/LanguageSetting/Container" index="1"]
+item_count = 2
+popup/item_0/text = "Deutsch"
+popup/item_0/icon = ExtResource("4_ncfhn")
+popup/item_0/id = 0
+popup/item_1/text = "English"
+popup/item_1/icon = ExtResource("5_ob3hf")
+popup/item_1/id = 1
+
+[node name="Hide" type="Button" parent="TabContainer/Sound/Sound/VBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+text = "Hide"
+
+[connection signal="value_changed" from="TabContainer/Sound/Sound/VBoxContainer/Music_Setting" to="." method="_on_music_setting_value_changed"]
+[connection signal="value_changed" from="TabContainer/Sound/Sound/VBoxContainer/SFX_Setting" to="." method="_on_sfx_setting_value_changed"]
+[connection signal="pressed" from="TabContainer/Sound/Sound/VBoxContainer/Hide" to="." method="_on_hide_pressed"]
+
+[editable path="TabContainer/Sound/Sound/VBoxContainer/LanguageSetting"]

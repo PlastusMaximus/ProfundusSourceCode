@@ -1,0 +1,62 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://c5un6jvbbyl7t"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wrvm5"]
+bg_color = Color(0.45699096, 0.26944938, 0.13110274, 1)
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aqe0t"]
+bg_color = Color(0, 0.7529412, 0.8352941, 1)
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxwsh"]
+bg_color = Color(0.2, 0.7529412, 0.8352941, 1)
+shadow_color = Color(0, 0, 0, 0.8039216)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1xobo"]
+bg_color = Color(0.3647059, 0.7529412, 0.8352941, 0.5882353)
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qbrm4"]
+bg_color = Color(0.24651414, 0.5956988, 0.66759384, 1)
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r1c7q"]
+bg_color = Color(0.75686276, 0.21960784, 0.05490196, 1)
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o840n"]
+bg_color = Color(0.37254903, 0.8039216, 0.89411765, 1)
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 10
+
+[resource]
+Button/font_sizes/font_size = 32
+Button/styles/disabled = SubResource("StyleBoxFlat_wrvm5")
+Button/styles/focus = SubResource("StyleBoxFlat_aqe0t")
+Button/styles/hover = SubResource("StyleBoxFlat_lxwsh")
+Button/styles/normal = SubResource("StyleBoxFlat_1xobo")
+Button/styles/pressed = SubResource("StyleBoxFlat_qbrm4")
+ProgressBar/colors/font_color = Color(0.75686276, 0.21960784, 0.05490196, 1)
+ProgressBar/colors/font_outline_color = Color(0.37254903, 0.8039216, 0.89411765, 1)
+ProgressBar/constants/outline_size = 12
+ProgressBar/font_sizes/font_size = 32
+ProgressBar/styles/background = SubResource("StyleBoxFlat_r1c7q")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_o840n")
+RichTextLabel/constants/outline_size = 24
+RichTextLabel/font_sizes/normal_font_size = 58

@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://17nnqd4fov4v"]
+
+[ext_resource type="PackedScene" uid="uid://7s6183671wlx" path="res://03_Assets/rocks/rock_15.tscn" id="1_jlgx4"]
+[ext_resource type="PackedScene" uid="uid://ddo18chl0uld0" path="res://03_Assets/rocks/rock_21.tscn" id="2_c1fx0"]
+[ext_resource type="PackedScene" uid="uid://cmmy7s4shu20h" path="res://03_Assets/rocks/rock_24.tscn" id="3_1fpmc"]
+[ext_resource type="PackedScene" uid="uid://b45yrs8idkisn" path="res://03_Assets/rocks/rock_11.tscn" id="4_x0k8w"]
+
+[node name="rockwall4" type="Node3D"]
+
+[node name="wall" type="Node3D" parent="."]
+transform = Transform3D(-11.93281, 0, 1.268087, 0, 12, 0, -1.268087, 0, -11.93281, 0, 0, 0)
+
+[node name="rock_15" type="Node3D" parent="wall" instance=ExtResource("1_jlgx4")]
+transform = Transform3D(-0.030716492, -1.9997641, 0, 1.9997641, -0.030716492, 0, 0, 0, 2, 0.015982628, 0.08061685, 0.053812027)
+
+[node name="rock_21" type="Node3D" parent="wall" instance=ExtResource("2_c1fx0")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.040979385, 0.15682442, 0.029835463)
+
+[node name="rock_24" type="Node3D" parent="wall" instance=ExtResource("3_1fpmc")]
+transform = Transform3D(0.39538315, 1.9605285, 0, -1.9605285, 0.39538315, 0, 0, 0, 2, 0.0018014908, 0.09102213, -0.048516035)
+
+[node name="rock_11" type="Node3D" parent="wall" instance=ExtResource("4_x0k8w")]
+transform = Transform3D(0.069991045, 0.20220312, -0.9768393, -0.56123805, 0.81753695, 0.12901498, 0.8246894, 0.5392096, 0.17070441, 0.012185097, 0.17588487, 0.0068888664)

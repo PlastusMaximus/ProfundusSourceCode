@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0ijmu21y54cs"]
+
+[ext_resource type="Script" uid="uid://0wpeq003w4mv" path="res://02_Scripts/Objects/quickflash.gd" id="1_08i1r"]
+[ext_resource type="AudioStream" uid="uid://geaawagyqyjd" path="res://03_Assets/Audio/SFX/camera-recharge.mp3" id="2_m517g"]
+[ext_resource type="AudioStream" uid="uid://cqrt1756eqe2u" path="res://03_Assets/Audio/SFX/camera-flash.mp3" id="3_ew717"]
+[ext_resource type="AudioStream" uid="uid://cfj0jyomrfbk8" path="res://03_Assets/Audio/SFX/CamStuckOnce.mp3" id="4_mcsp5"]
+[ext_resource type="AudioStream" uid="uid://djd11fybqdho8" path="res://03_Assets/Audio/SFX/CamStuckRepeatedly.mp3" id="5_8yk6x"]
+
+[node name="Quickflash" type="SpotLight3D"]
+light_energy = 0.0
+spot_range = 22.0
+spot_attenuation = 1.36604
+spot_angle = 81.69
+script = ExtResource("1_08i1r")
+
+[node name="Reload" type="AudioStreamPlayer" parent="." groups=["SFX"]]
+stream = ExtResource("2_m517g")
+volume_db = -10.42
+bus = &"SFX"
+
+[node name="Zack" type="AudioStreamPlayer" parent="." groups=["SFX"]]
+stream = ExtResource("3_ew717")
+volume_db = -10.651
+bus = &"SFX"
+
+[node name="Fail" type="AudioStreamPlayer" parent="." groups=["SFX"]]
+stream = ExtResource("4_mcsp5")
+bus = &"SFX"
+
+[node name="MultipleFails" type="AudioStreamPlayer" parent="." groups=["SFX"]]
+stream = ExtResource("5_8yk6x")
+bus = &"SFX"

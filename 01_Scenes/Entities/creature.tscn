@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://bw0tbvsn0cawe"]
+
+[ext_resource type="Script" uid="uid://cjprwok4fy0rc" path="res://02_Scripts/Entities/creature.gd" id="1_8h15j"]
+[ext_resource type="AudioStream" uid="uid://bxtwvxyxiilpf" path="res://03_Assets/Audio/SFX/Monster_Breath_1.mp3" id="3_ybybr"]
+[ext_resource type="AudioStream" uid="uid://bqicdfy34c0ao" path="res://03_Assets/Audio/SFX/Monster_Breath_2.mp3" id="4_qjqpa"]
+[ext_resource type="AudioStream" uid="uid://qitmubf3smww" path="res://03_Assets/Audio/SFX/Echo_Crawl.mp3" id="5_gpevb"]
+[ext_resource type="AudioStream" uid="uid://fbi4getxobe5" path="res://03_Assets/Audio/SFX/MonsterRoarJumpscare.mp3" id="6_qjqpa"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ybybr"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_8h15j"]
+radius = 0.005
+height = 0.005
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2dtvp"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qjqpa"]
+radius = 0.07373047
+height = 0.37191772
+
+[node name="Creature" type="CharacterBody3D" groups=["Creature"]]
+script = ExtResource("1_8h15j")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.54, 0, 0, 0, -3.059797e-08, 0.5, 0, -0.7, -2.1855694e-08, 0, 0, -2.2042203)
+mesh = SubResource("CapsuleMesh_ybybr")
+
+[node name="EyeR" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(-5.5555553, -8.3886556e-07, 3.666798e-14, -6.471249e-07, 4.285714, 0, -3.9601416e-14, 0, -6, 0.13944948, 0.97992516, 0.028759018)
+mesh = SubResource("SphereMesh_8h15j")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_2dtvp")
+
+[node name="EyeL" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(-5.5555553, -8.3886556e-07, 3.666798e-14, -6.471249e-07, 4.285714, 0, -3.9601416e-14, 0, -6, -0.14287335, 0.97992516, 0.028759018)
+mesh = SubResource("SphereMesh_8h15j")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_2dtvp")
+
+[node name="StateSwitch" type="Timer" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4, -3.496911e-07, 1.5285484e-14, -1.6940659e-21, -1.7484555e-07, -4, 3.496911e-07, -4, 1.7484555e-07, -2.4811726e-09, -1.2405863e-09, -2.2032185)
+shape = SubResource("CapsuleShape3D_qjqpa")
+disabled = true
+
+[node name="Breath1" type="AudioStreamPlayer3D" parent="." groups=["SFX"]]
+stream = ExtResource("3_ybybr")
+bus = &"SFX"
+
+[node name="Breath2" type="AudioStreamPlayer3D" parent="." groups=["SFX"]]
+stream = ExtResource("4_qjqpa")
+bus = &"SFX"
+
+[node name="Crawling" type="AudioStreamPlayer3D" parent="." groups=["SFX"]]
+stream = ExtResource("5_gpevb")
+bus = &"SFX"
+
+[node name="Jumpscare" type="AudioStreamPlayer3D" parent="." groups=["SFX"]]
+stream = ExtResource("6_qjqpa")
+bus = &"SFX"
+
+[node name="JumpscareLighting" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.28783455, -2.8402863)
+light_color = Color(0.70980394, 0.09411765, 0.105882354, 1)
+light_energy = 0.0
+
+[connection signal="timeout" from="StateSwitch" to="." method="_on_state_switch_timeout"]

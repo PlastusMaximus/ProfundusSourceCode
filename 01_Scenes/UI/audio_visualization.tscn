@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dx7k0gsjkwlw"]
+
+[ext_resource type="Script" uid="uid://dveob03ll26sq" path="res://02_Scripts/UI/audio_visualization.gd" id="1_aapsj"]
+
+[node name="AudioVisualization" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_aapsj")

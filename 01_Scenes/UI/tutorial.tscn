@@ -1,0 +1,215 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmgchcmgaxold"]
+
+[ext_resource type="Script" uid="uid://grouk4j6s7by" path="res://02_Scripts/UI/tutorial.gd" id="1_2ouwi"]
+[ext_resource type="Theme" uid="uid://b5qynaf8ft3ah" path="res://03_Assets/Visual/tutorial_theme.tres" id="2_2ouwi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ouwi"]
+bg_color = Color(0.3372549, 0.12156863, 0.12156863, 1)
+
+[node name="Tutorial" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_2ouwi")
+
+[node name="LookBackPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -402.0
+offset_top = 25.0
+offset_right = -126.0
+offset_bottom = -148.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_2ouwi")
+
+[node name="CenterContainer" type="CenterContainer" parent="LookBackPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="RichTextLabel" parent="LookBackPanel/CenterContainer"]
+custom_minimum_size = Vector2(276, 907)
+layout_mode = 2
+bbcode_enabled = true
+text = "Look behind you
+to check for [shake]The Persecutor[/shake]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CannotLookBack" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -402.0
+offset_top = 25.0
+offset_right = -126.0
+offset_bottom = -148.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_2ouwi")
+theme_override_styles/panel = SubResource("StyleBoxFlat_2ouwi")
+
+[node name="CenterContainer" type="CenterContainer" parent="CannotLookBack"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="RichTextLabel" parent="CannotLookBack/CenterContainer"]
+custom_minimum_size = Vector2(276, 907)
+layout_mode = 2
+bbcode_enabled = true
+text = "You cannot turn around at the moment.
+Hurry up or [shake]The Persecutor[/shake] will get you"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LookForwardPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1793.0
+offset_top = 25.0
+offset_right = -1517.0
+offset_bottom = -148.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_2ouwi")
+
+[node name="CenterContainer" type="CenterContainer" parent="LookForwardPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="RichTextLabel" parent="LookForwardPanel/CenterContainer"]
+custom_minimum_size = Vector2(276, 907)
+layout_mode = 2
+bbcode_enabled = true
+text = "Get away from [shake]The Persecutor[/shake]
+by looking forward
+and crawling through
+[color=red]The Tunnel[/color]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FlashPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -183.0
+offset_top = -515.0
+offset_right = 183.0
+offset_bottom = -269.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_2ouwi")
+
+[node name="CenterContainer" type="CenterContainer" parent="FlashPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="RichTextLabel" parent="FlashPanel/CenterContainer"]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 2
+bbcode_enabled = true
+text = "Press the right mouse click to use [color=yellow]The Light[/color]
+and scare [shake]The Persecutor[/shake] away when [color=white]The Eyes are close[/color]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DragPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -183.0
+offset_top = 145.0
+offset_right = 183.0
+offset_bottom = 391.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_2ouwi")
+
+[node name="CenterContainer" type="CenterContainer" parent="DragPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="RichTextLabel" parent="DragPanel/CenterContainer"]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 2
+bbcode_enabled = true
+text = "Press and hold the left mouse click.
+Then draw your mouse downwards
+to crawl through [color=red]The Tunnel[/color]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CrouchPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -119.0
+offset_top = -31.0
+offset_right = 119.0
+offset_bottom = 31.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_2ouwi")
+
+[node name="CenterContainer" type="CenterContainer" parent="CrouchPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="RichTextLabel" parent="CrouchPanel/CenterContainer"]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 2
+bbcode_enabled = true
+text = "Press Ctrl to crouch"
+horizontal_alignment = 1
+vertical_alignment = 1

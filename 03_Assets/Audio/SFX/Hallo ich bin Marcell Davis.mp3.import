@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://jx7ptgo1w61h"
+path="res://.godot/imported/Hallo ich bin Marcell Davis.mp3-42ed8441037a1af44e1702089d771c7d.mp3str"
+
+[deps]
+
+source_file="res://03_Assets/Audio/SFX/Hallo ich bin Marcell Davis.mp3"
+dest_files=["res://.godot/imported/Hallo ich bin Marcell Davis.mp3-42ed8441037a1af44e1702089d771c7d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

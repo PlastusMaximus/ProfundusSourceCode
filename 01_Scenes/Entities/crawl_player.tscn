@@ -1,0 +1,89 @@
+[gd_scene load_steps=10 format=3 uid="uid://bwh12fi0fs30r"]
+
+[ext_resource type="Script" uid="uid://ck5l2cf7goaek" path="res://02_Scripts/Entities/crawl_player.gd" id="1_hhbk8"]
+[ext_resource type="PackedScene" uid="uid://d0ijmu21y54cs" path="res://01_Scenes/Flashes/quickflash.tscn" id="2_l4go1"]
+[ext_resource type="PackedScene" uid="uid://cc04s3y0451cd" path="res://01_Scenes/Flashes/dim_flash.tscn" id="2_tj4ag"]
+[ext_resource type="PackedScene" uid="uid://dywhxjfcai3p0" path="res://01_Scenes/UI/crosshair.tscn" id="4_scqj0"]
+[ext_resource type="AudioStream" uid="uid://qitmubf3smww" path="res://03_Assets/Audio/SFX/Echo_Crawl.mp3" id="5_01icu"]
+[ext_resource type="Shader" uid="uid://byy7cd1u33kmp" path="res://03_Assets/Visual/shader/playershader.gdshader" id="6_cdloo"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_owuht"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_hhbk8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_komo4"]
+shader = ExtResource("6_cdloo")
+shader_parameter/exposure = 1.0
+shader_parameter/contrast = 1.05
+shader_parameter/saturation = 0.9
+shader_parameter/enable_pixelate = true
+shader_parameter/pixel_factor = 3.0
+shader_parameter/enable_posterize = true
+shader_parameter/color_levels = 16.0
+shader_parameter/dither_strength = 0.35
+shader_parameter/chrom_aberration = 0.07
+shader_parameter/vignette_strength = 1.0
+shader_parameter/grain_strength = 0.2
+shader_parameter/tint_color = Vector3(0.95, 1.03, 0.9)
+shader_parameter/tint_strength = 0.15
+shader_parameter/viewport_size_override = Vector2(0, 0)
+
+[node name="CrawlPlayer" type="CharacterBody3D" groups=["Player"]]
+script = ExtResource("1_hhbk8")
+
+[node name="Neck" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.7071068, 0, -0.7071068, 0.70710677, 0, 0, -1)
+
+[node name="Head" type="Node3D" parent="Neck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="Eyes" type="Node3D" parent="Neck/Head"]
+
+[node name="ActualCam" type="Camera3D" parent="Neck/Head/Eyes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1.1920929e-07)
+current = true
+
+[node name="FrontCam" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.7071067, 0.70710677, 0, -0.70710677, 0.7071067, 0, 0, -1)
+fov = 45.0
+
+[node name="flashlight" type="SpotLight3D" parent="FrontCam"]
+
+[node name="BackCam" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, -8.940697e-08, 0, 1, 0, 8.940697e-08, 0, -1, 0, 0, 1)
+fov = 30.0
+
+[node name="dimFlash" parent="BackCam" instance=ExtResource("2_tj4ag")]
+
+[node name="Quickflash" parent="BackCam" instance=ExtResource("2_l4go1")]
+
+[node name="CollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_owuht")
+
+[node name="MeshInstance" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_hhbk8")
+
+[node name="AmbientPlayerLight" type="OmniLight3D" parent="."]
+light_energy = 0.1
+omni_range = 1.1542867
+
+[node name="Crosshair" parent="." instance=ExtResource("4_scqj0")]
+visible = false
+
+[node name="Crawl" type="AudioStreamPlayer" parent="." groups=["SFX"]]
+stream = ExtResource("5_01icu")
+bus = &"SFX"
+
+[node name="PostProcessLayer" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="ColorRect" type="ColorRect" parent="PostProcessLayer"]
+material = SubResource("ShaderMaterial_komo4")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

@@ -1,0 +1,87 @@
+[gd_scene load_steps=10 format=3 uid="uid://d2bx7bdei6tm5"]
+
+[ext_resource type="Script" uid="uid://77ywims5ergo" path="res://02_Scripts/Entities/walk_player.gd" id="1_hiap2"]
+[ext_resource type="PackedScene" uid="uid://cc04s3y0451cd" path="res://01_Scenes/Flashes/dim_flash.tscn" id="2_wo8fs"]
+[ext_resource type="PackedScene" uid="uid://d0ijmu21y54cs" path="res://01_Scenes/Flashes/quickflash.tscn" id="3_vb50u"]
+[ext_resource type="PackedScene" uid="uid://dywhxjfcai3p0" path="res://01_Scenes/UI/crosshair.tscn" id="4_vb50u"]
+[ext_resource type="AudioStream" uid="uid://dus50rllju63d" path="res://03_Assets/Audio/SFX/Echo_Steps.mp3" id="5_chs12"]
+[ext_resource type="Shader" uid="uid://byy7cd1u33kmp" path="res://03_Assets/Visual/shader/playershader.gdshader" id="6_lpny0"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vqsi7"]
+radius = 0.3
+height = 1.7
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wo8fs"]
+radius = 0.3235344
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_76ni4"]
+shader = ExtResource("6_lpny0")
+shader_parameter/exposure = 1.0
+shader_parameter/contrast = 1.05
+shader_parameter/saturation = 0.9
+shader_parameter/enable_pixelate = true
+shader_parameter/pixel_factor = 3.0
+shader_parameter/enable_posterize = true
+shader_parameter/color_levels = 16.0
+shader_parameter/dither_strength = 0.35
+shader_parameter/chrom_aberration = 0.07
+shader_parameter/vignette_strength = 1.0
+shader_parameter/grain_strength = 0.2
+shader_parameter/tint_color = Vector3(0.95, 1.03, 0.9)
+shader_parameter/tint_strength = 0.15
+shader_parameter/viewport_size_override = Vector2(0, 0)
+
+[node name="WalkPlayer" type="CharacterBody3D" groups=["Player"]]
+collision_layer = 3
+script = ExtResource("1_hiap2")
+
+[node name="Neck" type="Node3D" parent="."]
+
+[node name="Head" type="Node3D" parent="Neck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="Eyes" type="Node3D" parent="Neck/Head"]
+
+[node name="Camera" type="Camera3D" parent="Neck/Head/Eyes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.497, 0)
+
+[node name="dimFlash" parent="Neck/Head/Eyes/Camera" instance=ExtResource("2_wo8fs")]
+
+[node name="quickflash" parent="Neck/Head/Eyes/Camera" instance=ExtResource("3_vb50u")]
+
+[node name="flashlight" type="SpotLight3D" parent="Neck/Head/Eyes/Camera"]
+spot_range = 1.0
+
+[node name="StandingCollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("CapsuleShape3D_vqsi7")
+
+[node name="CrouchingCollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.225, 0)
+shape = SubResource("SphereShape3D_wo8fs")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 1.6, 0)
+
+[node name="AmbientPlayerLight" type="OmniLight3D" parent="." groups=["Player"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+light_color = Color(0.909804, 0.937255, 1, 1)
+light_energy = 0.1
+
+[node name="Crosshair" parent="." instance=ExtResource("4_vb50u")]
+
+[node name="Footsteps" type="AudioStreamPlayer" parent="." groups=["SFX"]]
+stream = ExtResource("5_chs12")
+bus = &"SFX"
+
+[node name="PostProcessLayer" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="ColorRect" type="ColorRect" parent="PostProcessLayer"]
+material = SubResource("ShaderMaterial_76ni4")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

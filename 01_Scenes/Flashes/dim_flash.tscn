@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cc04s3y0451cd"]
+
+[ext_resource type="Script" uid="uid://d2mcawvmcwmdh" path="res://02_Scripts/Objects/dimFlash.gd" id="1_osjft"]
+
+[node name="dimFlash" type="SpotLight3D"]
+light_energy = 0.0
+light_indirect_energy = 0.7
+light_volumetric_fog_energy = 0.8
+spot_range = 22.0
+spot_attenuation = 1.36604
+spot_angle = 81.69
+script = ExtResource("1_osjft")

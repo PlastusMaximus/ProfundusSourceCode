@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8hy7ov4mat7l"]
+
+[ext_resource type="PackedScene" uid="uid://bjlau62mtne2s" path="res://03_Assets/Visual/CaveRockPack1_Fbx/CaveRockPack1_High1.fbx" id="1_ow6n6"]
+[ext_resource type="Texture2D" uid="uid://bk3r662se7ke0" path="res://03_Assets/Visual/Textures/Rock/rock_face_03_diff_1k.jpg" id="2_cb8es"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hi2en"]
+albedo_texture = ExtResource("2_cb8es")
+
+[node name="CaveRockPack1_High1" instance=ExtResource("1_ow6n6")]
+
+[node name="CaveRockPack1_High2" parent="." index="0"]
+transform = Transform3D(10, 0, 0, 0, 10, -1.6292068e-06, 0, 1.6292068e-06, 10, 0, 0, 0)
+surface_material_override/0 = SubResource("StandardMaterial3D_hi2en")

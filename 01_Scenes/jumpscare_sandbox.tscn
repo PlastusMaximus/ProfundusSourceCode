@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://jbbwoare0t22"]
+
+[ext_resource type="Script" uid="uid://dcq2emjwn7p8q" path="res://02_Scripts/jumpscare_sandbox.gd" id="1_kptcf"]
+[ext_resource type="PackedScene" uid="uid://bwh12fi0fs30r" path="res://01_Scenes/Entities/crawl_player.tscn" id="2_fyqki"]
+[ext_resource type="PackedScene" uid="uid://bw0tbvsn0cawe" path="res://01_Scenes/Entities/creature.tscn" id="3_sjxuj"]
+[ext_resource type="Texture2D" uid="uid://bk3r662se7ke0" path="res://03_Assets/Visual/Textures/Rock/rock_face_03_diff_1k.jpg" id="4_fyqki"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sjxuj"]
+albedo_texture = ExtResource("4_fyqki")
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv2_triplanar = true
+uv2_world_triplanar = true
+
+[node name="JumpscareSandbox" type="Node3D"]
+script = ExtResource("1_kptcf")
+
+[node name="CrawlPlayer" parent="." instance=ExtResource("2_fyqki")]
+
+[node name="Creature" parent="." instance=ExtResource("3_sjxuj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)
+state = 2
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1.0229614e-05, 1.0000008, 0, -234.02629, -4.371142e-08, 0, 0.2838714, -72.30545)
+inner_radius = 1.0
+outer_radius = 2.0
+material = SubResource("StandardMaterial3D_sjxuj")

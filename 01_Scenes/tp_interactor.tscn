@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://dos5frmea8unl"]
+
+[ext_resource type="Script" uid="uid://lfxui7fpdnmh" path="res://02_Scripts/Levels/win_zone.gd" id="1_m7sqn"]
+[ext_resource type="Texture2D" uid="uid://cqovdc8wxmhoy" path="res://03_Assets/Visual/Textures/corpse_other_DefaultMaterial_BaseColor.png" id="1_r5iu6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_73bg7"]
+albedo_texture = ExtResource("1_r5iu6")
+
+[sub_resource type="SphereMesh" id="SphereMesh_q4ag8"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_h27pb"]
+
+[node name="TP_Interactor" type="Area3D" groups=["TP_Interactor"]]
+script = ExtResource("1_m7sqn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+material_override = SubResource("StandardMaterial3D_73bg7")
+mesh = SubResource("SphereMesh_q4ag8")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_h27pb")

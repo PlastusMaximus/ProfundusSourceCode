@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://buq1el60phdmj"]
+
+[ext_resource type="Script" uid="uid://b5dhe5adcir2k" path="res://02_Scripts/UI/selector_setting.gd" id="1_lijh3"]
+
+[node name="SelectorSetting" type="Panel"]
+custom_minimum_size = Vector2(350, 40)
+script = ExtResource("1_lijh3")
+
+[node name="Container" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 350.0
+offset_bottom = 40.0
+alignment = 1
+
+[node name="Info" type="Label" parent="Container"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "Amogus:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="Container"]
+layout_mode = 2

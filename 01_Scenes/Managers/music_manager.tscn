@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bxfh64knwac4s"]
+
+[ext_resource type="Script" uid="uid://cbfm7vgou3n5q" path="res://02_Scripts/Managers/music_manager.gd" id="1_kqwop"]
+[ext_resource type="AudioStream" uid="uid://ctw8cy754y4rs" path="res://03_Assets/Audio/Music/action_level_1.ogg" id="2_hax7u"]
+[ext_resource type="AudioStream" uid="uid://c3ac6j2hdvgdt" path="res://03_Assets/Audio/Music/action_level_2.ogg" id="3_txq45"]
+[ext_resource type="AudioStream" uid="uid://by7hnw7wqj1ge" path="res://03_Assets/Audio/Music/action_level_3.ogg" id="4_llfih"]
+
+[node name="MusicManager" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kqwop")
+
+[node name="Level1" type="AudioStreamPlayer" parent="." groups=["Music"]]
+stream = ExtResource("2_hax7u")
+bus = &"Visualizer"
+
+[node name="Level2" type="AudioStreamPlayer" parent="." groups=["Music"]]
+stream = ExtResource("3_txq45")
+bus = &"Visualizer"
+
+[node name="Level3" type="AudioStreamPlayer" parent="." groups=["Music"]]
+stream = ExtResource("4_llfih")
+bus = &"Visualizer"

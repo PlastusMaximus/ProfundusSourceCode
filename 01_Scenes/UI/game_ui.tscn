@@ -1,0 +1,132 @@
+[gd_scene load_steps=11 format=3 uid="uid://bcla4ns65n2sp"]
+
+[ext_resource type="Texture2D" uid="uid://clsvwqobrbo2d" path="res://03_Assets/Visual/UI/WalkieTalkieUI.png" id="1_abceu"]
+[ext_resource type="Script" uid="uid://cswiuh3cyw5mm" path="res://02_Scripts/game_ui.gd" id="1_tdufm"]
+[ext_resource type="Theme" uid="uid://b5qynaf8ft3ah" path="res://03_Assets/Visual/tutorial_theme.tres" id="2_6gx6g"]
+[ext_resource type="PackedScene" uid="uid://dx7k0gsjkwlw" path="res://01_Scenes/UI/audio_visualization.tscn" id="2_cvvo6"]
+[ext_resource type="Texture2D" uid="uid://bylv65se60dwn" path="res://03_Assets/Visual/UI/lightning_symbol.png" id="4_q4eqk"]
+[ext_resource type="Texture2D" uid="uid://j7h6egd07r15" path="res://03_Assets/Visual/UI/EyeSymbol.png" id="5_rekwm"]
+[ext_resource type="Texture2D" uid="uid://bk3r662se7ke0" path="res://03_Assets/Visual/Textures/Rock/rock_face_03_diff_1k.jpg" id="6_4tukt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q4eqk"]
+bg_color = Color(1, 1, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6gx6g"]
+texture = ExtResource("6_4tukt")
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_logtc"]
+texture = ExtResource("6_4tukt")
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+modulate_color = Color(0.34615496, 3.3691526e-07, 2.4065375e-07, 1)
+
+[node name="GameUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_tdufm")
+
+[node name="LookBackwardPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 1834.0
+offset_top = 25.0
+offset_right = 1892.0
+offset_bottom = 932.0
+theme = ExtResource("2_6gx6g")
+
+[node name="TextureRect" type="TextureRect" parent="LookBackwardPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -29.0
+offset_top = -14.5
+offset_right = 29.0
+offset_bottom = 14.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_rekwm")
+expand_mode = 1
+
+[node name="LookForwardPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 25.0
+offset_right = 87.0
+offset_bottom = 932.0
+theme = ExtResource("2_6gx6g")
+
+[node name="TextureRect" type="TextureRect" parent="LookForwardPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -29.0
+offset_top = -14.5
+offset_right = 29.0
+offset_bottom = 14.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_rekwm")
+expand_mode = 1
+
+[node name="WalkieTalkieUI" type="TextureRect" parent="."]
+layout_mode = 0
+offset_top = 925.0
+offset_right = 310.0
+offset_bottom = 1080.0
+texture = ExtResource("1_abceu")
+expand_mode = 3
+
+[node name="AudioVisualization" parent="WalkieTalkieUI" instance=ExtResource("2_cvvo6")]
+layout_mode = 1
+
+[node name="FlashRecharge" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 1834.0
+offset_top = 963.0
+offset_right = 1892.0
+offset_bottom = 1057.0
+theme = ExtResource("2_6gx6g")
+theme_override_styles/fill = SubResource("StyleBoxFlat_q4eqk")
+value = 50.0
+fill_mode = 3
+show_percentage = false
+
+[node name="TextureRect" type="TextureRect" parent="FlashRecharge"]
+layout_mode = 0
+offset_top = 19.0
+offset_right = 58.0
+offset_bottom = 77.0
+texture = ExtResource("4_q4eqk")
+expand_mode = 1
+
+[node name="Timer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PortalProgress" type="ProgressBar" parent="Timer"]
+custom_minimum_size = Vector2(500, 50)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxTexture_6gx6g")
+theme_override_styles/fill = SubResource("StyleBoxTexture_logtc")
+show_percentage = false
+
+[connection signal="mouse_entered" from="LookBackwardPanel" to="." method="_on_look_back_panel_mouse_entered"]
+[connection signal="mouse_entered" from="LookForwardPanel" to="." method="_on_look_forward_panel_mouse_entered"]

@@ -1,0 +1,10 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://b5qynaf8ft3ah"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oub1h"]
+bg_color = Color(0.3647059, 0.7529412, 0.8352941, 0.5882353)
+
+[resource]
+Panel/styles/panel = SubResource("StyleBoxFlat_oub1h")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_oub1h")
+RichTextLabel/constants/outline_size = 12
+RichTextLabel/font_sizes/normal_font_size = 22

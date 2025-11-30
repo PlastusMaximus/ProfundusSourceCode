@@ -1,0 +1,31 @@
+[gd_scene load_steps=9 format=3 uid="uid://c5dysda6yh4v"]
+
+[ext_resource type="Script" uid="uid://c2dusvx0qcyn6" path="res://02_Scripts/Entities/game_manager.gd" id="1_8hy74"]
+[ext_resource type="PackedScene" uid="uid://yy864im71bdh" path="res://01_Scenes/UI/settings.tscn" id="1_wf3xl"]
+[ext_resource type="PackedScene" uid="uid://da7gnrajkgj2c" path="res://01_Scenes/UI/pause_menu.tscn" id="2_8hy74"]
+[ext_resource type="PackedScene" uid="uid://dmgchcmgaxold" path="res://01_Scenes/UI/tutorial.tscn" id="3_b08rk"]
+[ext_resource type="PackedScene" uid="uid://buig4rourb4jk" path="res://01_Scenes/UI/lore.tscn" id="3_cqd6h"]
+[ext_resource type="PackedScene" uid="uid://bxfh64knwac4s" path="res://01_Scenes/Managers/music_manager.tscn" id="4_oo731"]
+[ext_resource type="PackedScene" uid="uid://bcla4ns65n2sp" path="res://01_Scenes/UI/game_ui.tscn" id="5_cqd6h"]
+[ext_resource type="PackedScene" uid="uid://ckgh058t70e2h" path="res://01_Scenes/Managers/load_manager.tscn" id="5_jre77"]
+
+[node name="GameManager" type="Node"]
+script = ExtResource("1_8hy74")
+
+[node name="UI_Layer" type="CanvasLayer" parent="."]
+
+[node name="GameUI" parent="UI_Layer" instance=ExtResource("5_cqd6h")]
+
+[node name="Tutorial" parent="UI_Layer" instance=ExtResource("3_b08rk")]
+
+[node name="Lore" parent="UI_Layer" instance=ExtResource("3_cqd6h")]
+
+[node name="PauseMenu" parent="UI_Layer" instance=ExtResource("2_8hy74")]
+
+[node name="Settings" parent="UI_Layer" instance=ExtResource("1_wf3xl")]
+offset_right = 350.0
+offset_bottom = 1080.0
+
+[node name="MusicManager" parent="UI_Layer" instance=ExtResource("4_oo731")]
+
+[node name="LoadManager" parent="." instance=ExtResource("5_jre77")]
