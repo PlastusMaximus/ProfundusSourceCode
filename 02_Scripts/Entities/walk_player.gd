@@ -10,7 +10,7 @@ enum States {
 @export var state: States = States.WALKING
 @export_category("Movement")
 @export var walking_speed: float = 2.5
-@export var crouching_speed: float = 2.0
+@export var crouching_speed: float = 1.25
 @export_category("Input")
 @export var mouse_sens: float = 0.07
 
@@ -53,6 +53,7 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 
 func _ready():
+	super._ready()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	footsteps.play()
 	footsteps.stream_paused = true

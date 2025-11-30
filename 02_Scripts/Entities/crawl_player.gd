@@ -28,13 +28,18 @@ const GRAB_CURSOR: CompressedTexture2D = preload("uid://degn6ri0cbf4g")
 var can_crawl: bool = true
 var drag_power: float = 0.0
 var dragging: bool = false
+var in_tight_area: bool = false
+var first_look_back: bool = true
+var first_flash: bool = true
+var first_look_forward: bool = true
+var first_drag: bool = true
 
 var creature: Creature
 
 func _ready() -> void:
+	super._ready()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	creature = get_tree().get_first_node_in_group("Creature")
-	GameManagerGlobal.game_ui.set_player(self)
 	quickflash.can_flash = false
 	crawl.play()
 	crawl.stream_paused = true
@@ -48,6 +53,20 @@ func _input(event: InputEvent) -> void:
 		if lucky_number < flash_fail_chance:
 			quickflash.failed_flash.emit()
 		else:
+			if creature != null:
+				match creature.state:
+					Creature.States.GONE:
+						#Cooldown temporär um 10 Sekunden erhöhen
+						quickflash.cooldown_time = quickflash.initial_cooldown_time + 10
+					Creature.States.IN_TUNNEL:
+						#Cooldown temporär um 5 Sekunden erhöhen
+						quickflash.cooldown_time = quickflash.initial_cooldown_time + 5
+					Creature.States.NEAR_PLAYER:
+						quickflash.cooldown_time = quickflash.initial_cooldown_time
+					Creature.States.JUMPSCARING:
+						quickflash.cooldown_time = 0
+			else:
+				quickflash.cooldown_time = quickflash.initial_cooldown_time
 			quickflash.flash.emit()
 			dim_flash.dim.emit()
 
@@ -95,6 +114,18 @@ func move_cam_forward() -> Tween:
 	tween.tween_subtween(GameManagerGlobal.game_ui.hide_tween(crosshair))
 	tween.tween_property(self, "can_crawl", true, 0)
 	tween.tween_property(quickflash, "can_flash", false, 0)
+	return tween
+
+func move_cam_up() -> Tween:
+	var tween: Tween = create_tween().set_parallel(true)
+	tween.tween_property(front_cam, "rotation_degrees", Vector3(-25,0,0), StatManagerGlobal.ui_speed).set_trans(Tween.TRANS_EXPO)
+	tween.tween_property(actual_cam, "rotation_degrees", Vector3(20,0,0), StatManagerGlobal.ui_speed).set_trans(Tween.TRANS_EXPO)
+	return tween
+
+func move_cam_down() -> Tween:
+	var tween: Tween = create_tween().set_parallel(true)
+	tween.tween_property(front_cam, "rotation_degrees", Vector3(-45,0,0), StatManagerGlobal.ui_speed).set_trans(Tween.TRANS_EXPO)
+	tween.tween_property(actual_cam, "rotation_degrees", Vector3(0,0,0), StatManagerGlobal.ui_speed).set_trans(Tween.TRANS_EXPO)
 	return tween
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -167,13 +198,35 @@ func shiver_tween(duration: float, shivers: int) -> Tween:
 	var divided_duration: float = duration / shivers
 	var tween: Tween = get_tree().create_tween()
 	for i: int in range(0, shivers):
-		tween.tween_property(actual_cam, "rotation_degrees", Vector3(randf_range(-.5,.5), randf_range(-179.5,-180.5), randf_range(-1, 1)), divided_duration).set_trans(Tween.TRANS_EXPO)
+		if in_tight_area:
+			tween.tween_property(actual_cam, "rotation_degrees", Vector3(randf_range(19.5, 20.5), randf_range(-.5,.5), randf_range(-1, 1)), divided_duration).set_trans(Tween.TRANS_EXPO)
+		else:
+			tween.tween_property(actual_cam, "rotation_degrees", Vector3(randf_range(-.5, .5), randf_range(-179.5, -180.5), randf_range(-1, 1)), divided_duration).set_trans(Tween.TRANS_EXPO)
 	return tween
 
 func die_tween() -> Tween:
 	var tween: Tween = get_tree().create_tween()
 	#var random_rotation: Vector3 =  Vector3(randf_range(-5,5), randf_range(-175,-185), randf_range(10,-10))
 	for i in range(0,50):
-		tween.tween_property(actual_cam, "rotation_degrees", Vector3(randf_range(-5,5), randf_range(-175,-185), randf_range(10,-10)), creature.jumpscare_length/100.0).set_trans(Tween.TRANS_QUAD)
-		tween.tween_property(actual_cam, "rotation_degrees", Vector3(0, -180, 0), creature.jumpscare_length/100.0).set_trans(Tween.TRANS_QUAD)
+		
+		if in_tight_area:
+			tween.tween_property(actual_cam, "rotation_degrees", Vector3(randf_range(15,25), randf_range(-5, 5), randf_range(10,-10)), creature.jumpscare_length/100.0).set_trans(Tween.TRANS_QUAD)
+			tween.tween_property(actual_cam, "rotation_degrees", Vector3(20, 0, 0), creature.jumpscare_length/100.0).set_trans(Tween.TRANS_QUAD)
+		else:
+			tween.tween_property(actual_cam, "rotation_degrees", Vector3(randf_range(-5,5), randf_range(-175,-185), randf_range(10,-10)), creature.jumpscare_length/100.0).set_trans(Tween.TRANS_QUAD)
+			tween.tween_property(actual_cam, "rotation_degrees", Vector3(0, -180, 0), creature.jumpscare_length/100.0).set_trans(Tween.TRANS_QUAD)
 	return tween
+
+func _on_tight_area_entered() -> void:
+	in_tight_area = true
+	GameManagerGlobal.game_ui.cannot_turn_around_tween()
+	await move_cam_up().finished
+	await GameManagerGlobal.game_ui.cannot_turn_around_tween().finished
+	
+
+func _on_tight_area_exited() -> void:
+	in_tight_area = false
+	GameManagerGlobal.game_ui.can_turn_around_again_tween()
+	await move_cam_down().finished
+	await GameManagerGlobal.game_ui.can_turn_around_again_tween().finished
+	

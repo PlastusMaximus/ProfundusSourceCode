@@ -76,7 +76,8 @@ grow_vertical = 2
 custom_minimum_size = Vector2(276, 907)
 layout_mode = 2
 bbcode_enabled = true
-text = "You cannot turn around at the moment.
+text = "This area is very tight.
+You cannot turn around at the moment.
 Hurry up or [shake]The Persecutor[/shake] will get you"
 horizontal_alignment = 1
 vertical_alignment = 1

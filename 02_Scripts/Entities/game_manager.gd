@@ -50,7 +50,7 @@ func unpause_game() -> void:
 	await pause_menu.unpause_tween().finished
 	pause_menu.hide()
 	get_tree().paused = false
-	if get_tree().get_first_node_in_group("Player") is Player:
+	if get_tree().get_first_node_in_group("Player") is WalkPlayer:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 ##Hides all UI elements managed by the GameManager.

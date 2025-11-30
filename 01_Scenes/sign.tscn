@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://dscrn4qdlguao"]
+[gd_scene load_steps=7 format=4 uid="uid://b1a7rqs0e7dpi"]
 
 [ext_resource type="Texture2D" uid="uid://dbls57hkvp1w" path="res://03_Assets/Visual/sign/source/sainn_0.png" id="1_l7uoe"]
 [ext_resource type="Texture2D" uid="uid://owfg4ua6kibi" path="res://03_Assets/Visual/sign/source/sainn_1.png" id="2_iseee"]
@@ -57,4 +57,5 @@ skeleton = NodePath("")
 [node name="Sprite3D" type="Sprite3D" parent="Cube_001"]
 transform = Transform3D(-1.6095138e-10, -3.665512e-11, -0.0028999995, -0.0017588957, -0.0023057067, 1.2676302e-10, -0.0023057067, 0.0017588957, 1.0573592e-10, 0.0004076391, 0.039395675, 0.043504354)
 transparency = 0.9
+shaded = true
 texture = ExtResource("3_3lg6w")

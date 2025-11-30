@@ -9,8 +9,8 @@ class_name Creature extends CharacterBody3D
 
 @onready var skeleton_3d: Skeleton3D = $Skeleton3D
 @onready var state_switch: Timer = $StateSwitch
-@onready var eye_r: MeshInstance3D = $Body/EyeR
-@onready var eye_l: MeshInstance3D = $Body/EyeL
+@onready var eye_l: MeshInstance3D = $Skeleton3D2/EyeL
+@onready var eye_r: MeshInstance3D = $Skeleton3D2/EyeR
 @onready var breath_1: AudioStreamPlayer3D = $Breath1
 @onready var breath_2: AudioStreamPlayer3D = $Breath2
 @onready var crawling: AudioStreamPlayer3D = $Crawling
@@ -53,15 +53,16 @@ func _process(_delta: float) -> void:
 	handle_random_sounds()
 
 func handle_position() -> void:
-	match state:
-		States.GONE:
-			global_position = player.global_position + Vector3(0,0,30)
-		States.IN_TUNNEL:
-			global_position = player.global_position + Vector3(0,0,7)
-		States.NEAR_PLAYER:
-			global_position = player.global_position + Vector3(0,0,5)
-		States.JUMPSCARING:
-			pass
+	if not player.in_tight_area:
+		match state:
+			States.GONE:
+				global_position = player.global_position + Vector3(0,0,30)
+			States.IN_TUNNEL:
+				global_position = player.global_position + Vector3(0,0,7)
+			States.NEAR_PLAYER:
+				global_position = player.global_position + Vector3(0,0,5)
+			States.JUMPSCARING:
+				pass
 
 func handle_random_sounds() -> void:
 	var lucky_number: float = randf_range(0,1000)
@@ -89,21 +90,25 @@ func prepare_jumpscare_tween() -> Tween:
 	tween.tween_property(player, "flash_fail_chance", 100, 0)
 	#flashlight stuff
 	tween.tween_property(player.flashlight, "light_color", Color.CRIMSON,.1).set_trans(Tween.TRANS_EXPO)
-	tween.tween_property(player.flashlight, "light_energy", 0,.1).set_trans(Tween.TRANS_SPRING)
-	tween.tween_callback(player.flashlight.hide)
-	#if player
-	if player.can_crawl:
-		#flashlight off
+	
+	if not player.in_tight_area:
+		tween.tween_property(player.flashlight, "light_energy", 0,.1).set_trans(Tween.TRANS_SPRING)
+		tween.tween_callback(player.flashlight.hide)
+		if player.can_crawl:
+			#flashlight off
+			tween.tween_property(jumpscare_lighting, "light_energy", 32, randf_range(.5,2)).set_trans(Tween.TRANS_SPRING)
+			tween.tween_property(jumpscare_lighting, "light_energy", 0, randf_range(.5,2)).set_trans(Tween.TRANS_SPRING)
+			#turning player around
+			tween.tween_subtween(player.turn_back_tween())
+			#disabling ui again
+			tween.tween_callback(GameManagerGlobal.game_ui.hide_ui_for_walking)
+		#monster moving away
+		tween.tween_subtween(scare_away_tween())
+		#monster moving again
+		tween.tween_property(self, "global_position", player.global_position+Vector3(0,0,randi_range(5,20)),randf_range(.5,3)).set_trans(Tween.TRANS_ELASTIC)
+	else:
 		tween.tween_property(jumpscare_lighting, "light_energy", 32, randf_range(.5,2)).set_trans(Tween.TRANS_SPRING)
-		tween.tween_property(jumpscare_lighting, "light_energy", 0, randf_range(.5,2)).set_trans(Tween.TRANS_SPRING)
-		#turning player around
-		tween.tween_subtween(player.turn_back_tween())
-		#disabling ui again
-		tween.tween_callback(GameManagerGlobal.game_ui.hide_ui_for_walking)
-	#monster moving away
-	tween.tween_subtween(scare_away_tween())
-	#monster moving again
-	tween.tween_property(self, "global_position", player.global_position+Vector3(0,0,randi_range(5,20)),randf_range(.5,3)).set_trans(Tween.TRANS_ELASTIC)
+		#tween.tween_property(jumpscare_lighting, "light_energy", 12, randf_range(.5,2)).set_trans(Tween.TRANS_SPRING)
 	#player shaking
 	var duration = randf_range(1,10)
 	tween.tween_subtween(player.shiver_tween(duration, duration * 10))
@@ -136,15 +141,15 @@ func jumpscare_tween() -> Tween:
 	tween.tween_subtween(player.die_tween())
 	return tween
 
+func tight_area_jumpscare_tween() -> Tween:
+	var tween: Tween = create_tween().set_parallel(true)
+	tween.tween_callback(jumpscare.play)
+	tween.tween_property(player, "global_position", Vector3(0, 2.341, 21.505), 1).set_trans(Tween.TRANS_EXPO)
+	tween.tween_subtween(player.die_tween())
+	return tween
+
 func _on_player_flash() -> void:
-	match state:
-		States.GONE:
-			#Cooldown temporär um 10 Sekunden erhöhen
-			pass
-		States.IN_TUNNEL:
-			#Cooldown temporär um 5 Sekunden erhöhen
-			pass
-		States.NEAR_PLAYER:
+	if state == States.NEAR_PLAYER:
 			await player.dim_flash.dimmed
 			var tween = get_tree().create_tween()
 			tween.tween_property(self, "global_position", player.global_position + Vector3(0,0,30), 1).set_trans(Tween.TRANS_EXPO)
@@ -166,5 +171,8 @@ func _on_state_switch_timeout() -> void:
 	elif state == States.NEAR_PLAYER:
 		state = States.JUMPSCARING
 		await prepare_jumpscare_tween().finished
-		await jumpscare_tween().finished
+		if player.in_tight_area:
+			await tight_area_jumpscare_tween().finished
+		else:
+			await jumpscare_tween().finished
 		GameManagerGlobal.load_scene(get_tree().current_scene.scene_file_path)

@@ -120,11 +120,11 @@ _data = {
 }
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_x2ocu"]
-height = 0.30955505
+height = 0.08934784
 radius = 0.94921875
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_hu2p3"]
-height = 0.6772747
+height = 1.131721
 radius = 0.7963867
 
 [node name="AnimatedPortal" type="StaticBody3D"]
@@ -166,7 +166,7 @@ libraries = {
 autoplay = "Armature|ArmatureAction"
 
 [node name="ActivatedShape" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -5.404896e-09, 0.1236496)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -5.9211436e-10, 0.01354599)
 shape = SubResource("CylinderShape3D_x2ocu")
 
 [node name="DeactivatedShape" type="CollisionPolygon3D" parent="."]
@@ -176,7 +176,7 @@ polygon = PackedVector2Array(-0.38522223, 0.65422815, -0.70138454, 0.3840268, -0
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="PortalShape" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 4.1772932e-08, 0.01869291)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 4.2645503e-08, -0.0012691617)
 shape = SubResource("CylinderShape3D_hu2p3")
 
 [node name="Deactivate" type="AudioStreamPlayer" parent="."]

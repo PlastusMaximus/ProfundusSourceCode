@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://pio4tpysdh6l"]
+[gd_scene load_steps=15 format=3 uid="uid://pio4tpysdh6l"]
 
 [ext_resource type="Script" uid="uid://cjsrs7i722nhe" path="res://02_Scripts/Levels/crawl_level.gd" id="1_14kqb"]
 [ext_resource type="Texture2D" uid="uid://bk3r662se7ke0" path="res://03_Assets/Visual/Textures/Rock/rock_face_03_diff_1k.jpg" id="2_sp7kl"]
@@ -35,8 +35,15 @@ uv2_world_triplanar = true
 [sub_resource type="BoxShape3D" id="BoxShape3D_rjaef"]
 size = Vector3(3, 3, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_14kqb"]
+size = Vector3(2.9384766, 3.702362, 8.52767)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mgnq6"]
+size = Vector3(1, 4.848572, 11.65638)
+
 [node name="CrawlLevel" type="Node3D"]
 script = ExtResource("1_14kqb")
+level = 2
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
@@ -409,5 +416,21 @@ transform = Transform3D(7.54979e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, -7
 
 [node name="rockwall_nocollision4" parent="walls18" instance=ExtResource("6_14kqb")]
 transform = Transform3D(-4.371139e-08, -1, -4.371139e-08, 3.821371e-15, 4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, 0.16937697, 3.3321657, 20.17227)
+
+[node name="areas" type="Node3D" parent="."]
+
+[node name="tightArea" type="Area3D" parent="areas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -25.167913)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="areas/tightArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38648129, 2.3952816, -10.494471)
+shape = SubResource("BoxShape3D_14kqb")
+
+[node name="tightArea2" type="Area3D" parent="areas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -13.549868)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="areas/tightArea2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8441467, -1.7978249)
+shape = SubResource("BoxShape3D_mgnq6")
 
 [connection signal="body_entered" from="WinZone" to="." method="_on_win_zone_body_entered"]

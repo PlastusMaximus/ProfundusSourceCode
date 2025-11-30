@@ -12,7 +12,7 @@ const FLASH_CURSOR: CompressedTexture2D = preload("uid://dbplxac1l20hb")
 
 var recharge_timer: SceneTreeTimer
 
-var player: CrawlPlayer
+var player: Player
 
 func _ready() -> void:
 	look_backward_panel.hide()
@@ -24,12 +24,12 @@ func _ready() -> void:
 	#await get_tree().create_timer(5).timeout
 	#can_turn_around_again_tween()
 
-func set_player(new_player: CrawlPlayer) -> void:
+func set_player(new_player: Player) -> void:
 	player = new_player
-	flash_recharge.max_value = player.quickflash.cooldown_time
-	look_backward_panel.show()
 
 func recharge_flash(timer: SceneTreeTimer) -> void:
+	if player != null:
+		flash_recharge.max_value = player.quickflash.cooldown_time
 	recharge_timer = timer
 	await recharge_timer.timeout
 	recharge_timer = null
@@ -62,7 +62,9 @@ func let_stuff_appear_on_the_back() -> Tween:
 	tween.tween_callback(Input.set_custom_mouse_cursor.bind(FLASH_CURSOR))
 	tween.tween_property(Input, "mouse_mode", Input.MOUSE_MODE_VISIBLE, 0)
 	tween.tween_subtween(show_tween(look_forward_panel))
-	tween.tween_subtween(GameManagerGlobal.tutorial.show_tween(GameManagerGlobal.tutorial.flash))
+	if player.first_look_back:
+		tween.tween_subtween(GameManagerGlobal.tutorial.show_tween(GameManagerGlobal.tutorial.flash))
+		tween.tween_property(player, "first_look_back", false, 0)
 	return tween
 
 func _on_look_forward_panel_mouse_entered() -> void:
@@ -74,21 +76,23 @@ func let_stuff_appear_front() -> Tween:
 	tween.tween_callback(Input.set_custom_mouse_cursor.bind(REGULAR_CURSOR))
 	tween.tween_property(Input, "mouse_mode", Input.MOUSE_MODE_VISIBLE, 0)
 	tween.tween_subtween(show_tween(look_backward_panel))
-	tween.tween_subtween(GameManagerGlobal.tutorial.show_tween(GameManagerGlobal.tutorial.drag))
+	if player.first_drag:
+		tween.tween_subtween(GameManagerGlobal.tutorial.show_tween(GameManagerGlobal.tutorial.drag))
+		player.first_drag = false
 	return tween
 
 func cannot_turn_around_tween() -> Tween:
 	var tween: Tween = get_tree().create_tween().set_parallel(true)
-	tween.tween_property(look_backward_panel, "modulate", Color.RED, 1)
-	tween.tween_subtween(GameManagerGlobal.tutorial.show_tween(GameManagerGlobal.tutorial.cannot_look_back))
 	tween.tween_property(look_backward_panel, "mouse_filter", MOUSE_FILTER_IGNORE, 0)
+	tween.tween_property(look_backward_panel, "modulate", Color.RED, StatManagerGlobal.ui_speed).set_trans(Tween.TRANS_EXPO)
+	tween.tween_subtween(GameManagerGlobal.tutorial.show_tween(GameManagerGlobal.tutorial.cannot_look_back))
 	return tween
 
 func can_turn_around_again_tween() -> Tween:
 	var tween: Tween = get_tree().create_tween().set_parallel(true)
-	tween.tween_property(look_backward_panel, "modulate", Color.WHITE, 1)
-	tween.tween_subtween(GameManagerGlobal.tutorial.hide_tween(GameManagerGlobal.tutorial.cannot_look_back))
 	tween.tween_property(look_backward_panel, "mouse_filter", MOUSE_FILTER_STOP, 0)
+	tween.tween_property(look_backward_panel, "modulate", Color.WHITE, .1).set_trans(Tween.TRANS_EXPO)
+	tween.tween_subtween(GameManagerGlobal.tutorial.hide_tween(GameManagerGlobal.tutorial.cannot_look_back))
 	return tween
 
 func show_tween(panel: Control) -> Tween:
