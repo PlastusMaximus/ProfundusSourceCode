@@ -4,6 +4,7 @@ class_name CrawlLevel extends Level
 
 func _ready() -> void:
 	super._ready()
+	GameManagerGlobal.game_ui.hide_tween(GameManagerGlobal.game_ui.look_forward_panel)
 	_connect_tight_areas()
 
 func _connect_tight_areas() -> void:

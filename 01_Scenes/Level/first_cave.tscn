@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://d2bx7bdei6tm5" path="res://01_Scenes/Entities/walk_player.tscn" id="2_c2jam"]
 [ext_resource type="PackedScene" uid="uid://b1yc3a7wdfhck" path="res://03_Assets/Visual/rocksAndStone/rockwall2.tscn" id="3_5b45g"]
 [ext_resource type="PackedScene" uid="uid://cfbfw0dhfdbqv" path="res://03_Assets/Visual/rocksAndStone/rockwall.tscn" id="4_cic21"]
-[ext_resource type="PackedScene" uid="uid://b1a7rqs0e7dpi" path="res://01_Scenes/sign.tscn" id="5_fslyl"]
+[ext_resource type="PackedScene" uid="uid://dscrn4qdlguao" path="res://01_Scenes/sign.tscn" id="5_fslyl"]
 [ext_resource type="PackedScene" uid="uid://17nnqd4fov4v" path="res://03_Assets/Visual/rocksAndStone/rockwall_4.tscn" id="5_m2rwn"]
 [ext_resource type="PackedScene" uid="uid://b4twwppa67mhn" path="res://03_Assets/Visual/rocksAndStone/rockwall_3.tscn" id="6_cic21"]
 [ext_resource type="PackedScene" uid="uid://dtorr3pgstdk4" path="res://03_Assets/rocks/rock_25.tscn" id="7_ay7ql"]
@@ -48,6 +48,7 @@ size = Vector3(3, 1, 1.6832275)
 
 [node name="FirstLevel" type="Node3D"]
 script = ExtResource("1_g3xqb")
+level = 1
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
@@ -906,28 +907,28 @@ transform = Transform3D(1, 8.742279e-08, -1.509958e-07, 8.742278e-08, -1, -8.742
 [node name="stalagmite22" parent="." instance=ExtResource("20_g3xqb")]
 transform = Transform3D(1, 8.742279e-08, -1.509958e-07, 8.742278e-08, -1, -8.742278e-08, -1.5099582e-07, 8.742276e-08, -1, 11.129519, -4.533335, -15.557816)
 
-[node name="rock1" type="Node3D" parent="." instance=ExtResource("11_q4ag8")]
+[node name="rock1" parent="." instance=ExtResource("11_q4ag8")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 15.653038, -6.6202803, -19.944458)
 
-[node name="rock2" type="Node3D" parent="." instance=ExtResource("11_q4ag8")]
+[node name="rock2" parent="." instance=ExtResource("11_q4ag8")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 15.983334, -6.6202803, -17.02087)
 
-[node name="rock3" type="Node3D" parent="." instance=ExtResource("11_q4ag8")]
+[node name="rock3" parent="." instance=ExtResource("11_q4ag8")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 16.855886, -6.5953565, -20.019169)
 
-[node name="rock4" type="Node3D" parent="." instance=ExtResource("11_q4ag8")]
+[node name="rock4" parent="." instance=ExtResource("11_q4ag8")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 17.163586, -6.585942, -16.969124)
 
-[node name="rock5" type="Node3D" parent="." instance=ExtResource("11_q4ag8")]
+[node name="rock5" parent="." instance=ExtResource("11_q4ag8")]
 transform = Transform3D(-4.371139e-07, 10, 0, -10, -4.371139e-07, 0, 0, 0, 10, 16.448349, -5.489063, -17.123974)
 
-[node name="rock6" type="Node3D" parent="." instance=ExtResource("11_q4ag8")]
+[node name="rock6" parent="." instance=ExtResource("11_q4ag8")]
 transform = Transform3D(-4.371139e-07, 10, 0, -10, -4.371139e-07, 0, 0, 0, 10, 17.114288, -5.386522, -17.374702)
 
-[node name="rock7" type="Node3D" parent="." instance=ExtResource("11_q4ag8")]
+[node name="rock7" parent="." instance=ExtResource("11_q4ag8")]
 transform = Transform3D(-4.371139e-07, 10, 0, -10, -4.371139e-07, 0, 0, 0, 10, 17.28354, -6.070547, -19.83008)
 
-[node name="rock8" type="Node3D" parent="." instance=ExtResource("11_q4ag8")]
+[node name="rock8" parent="." instance=ExtResource("11_q4ag8")]
 transform = Transform3D(-10, 7.642742e-14, 8.742278e-07, 0, 10, -8.742278e-07, -8.742278e-07, -8.742278e-07, -10, 17.473623, -7.1735263, -19.19587)
 
 [connection signal="body_entered" from="CrouchTutorialArea" to="." method="_on_crouch_tutorial_area_body_entered"]

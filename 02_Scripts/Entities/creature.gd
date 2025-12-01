@@ -9,8 +9,8 @@ class_name Creature extends CharacterBody3D
 
 @onready var skeleton_3d: Skeleton3D = $Skeleton3D
 @onready var state_switch: Timer = $StateSwitch
-@onready var eye_l: MeshInstance3D = $Skeleton3D2/EyeL
-@onready var eye_r: MeshInstance3D = $Skeleton3D2/EyeR
+@onready var eye_l: MeshInstance3D = $Skeleton3D/EyeL
+@onready var eye_r: MeshInstance3D = $Skeleton3D/EyeR
 @onready var breath_1: AudioStreamPlayer3D = $Breath1
 @onready var breath_2: AudioStreamPlayer3D = $Breath2
 @onready var crawling: AudioStreamPlayer3D = $Crawling
@@ -109,6 +109,7 @@ func prepare_jumpscare_tween() -> Tween:
 	else:
 		tween.tween_property(jumpscare_lighting, "light_energy", 32, randf_range(.5,2)).set_trans(Tween.TRANS_SPRING)
 		#tween.tween_property(jumpscare_lighting, "light_energy", 12, randf_range(.5,2)).set_trans(Tween.TRANS_SPRING)
+		tween.tween_callback(hide)
 	#player shaking
 	var duration = randf_range(1,10)
 	tween.tween_subtween(player.shiver_tween(duration, duration * 10))

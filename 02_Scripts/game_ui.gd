@@ -35,8 +35,8 @@ func recharge_flash(timer: SceneTreeTimer) -> void:
 	recharge_timer = null
 
 func hide_ui_for_walking() -> void:
-	look_backward_panel.hide()
-	look_forward_panel.hide()
+	hide_tween(look_backward_panel)
+	hide_tween(look_forward_panel)
 	GameManagerGlobal.tutorial.hide_tween(GameManagerGlobal.tutorial.look_back)
 	GameManagerGlobal.tutorial.hide_tween(GameManagerGlobal.tutorial.look_forward)
 	GameManagerGlobal.tutorial.hide_tween(GameManagerGlobal.tutorial.drag)
